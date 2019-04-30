@@ -34,7 +34,27 @@ public class MineSweeper
     
     public int checkMines(int row, int column)
     {
-        if()
+        int out = 0;
+        int[][] placeChecks; 
+        placeChecks=new int[8][2];
+        placeChecks = {{row-1, column-1},{row-1,column},{row-1,coumn+1},{row,colum+1},{row+1,column+1},{row+1,column},
+                      {row+1,column-1},{row, column-1}};
+        
+        for(int[] n: placeChecks)
+        {
+             if(n[0] >= 0 && n[1]>=0)
+             {
+                 if(board[n[0]][n[1]]=9)
+                 {
+                      out+=1
+                 }
+             }
+              
+        }
+        return out;
+        
+        
+        
     }
     
 
