@@ -1,9 +1,16 @@
-
 public class Test
 {
+    public int counter = 0;
+    
     public static void main()
     {
-    MineSweeper game = new MineSweeper(5,5);
-    game.printGame();
+    int row = 5;
+    int column = 5;
+    MineSweeper round = new MineSweeper(row, column, 4);
+    round.printGame();
+    round.start(row,column);
+    round.printBoard();
 }
+
+
 }
