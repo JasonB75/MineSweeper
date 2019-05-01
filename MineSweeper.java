@@ -1,6 +1,7 @@
 public class MineSweeper
 {
     int[][] board;
+    String[][] playerBoard;
 
     public void generateBoard(int numMines, int row, int column )
     {
@@ -69,8 +70,8 @@ public class MineSweeper
         }
     }
     
-    public void printBoard(String[][] array)
-     {    for(String[] n: array)
+    public void printBoard()
+     {    for(String[] n: playerBoard)
         {
             String out = "";
             for(String m: n)
@@ -81,6 +82,31 @@ public class MineSweeper
             out = "";
         }
     }
+    
+    public void start(int rows, int columns)
+{
+   String[][] playerBoard = new String[rows+1][columns+1];
+   String[] letterArray = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+   String[] numArray = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"};
+   
+   
+   
+   for (int i=0; i<columns; i++)
+   {
+       playerBoard[0][i] = numArray[i];
+    }
+   for (int i=0; i<rows; i++)
+   {
+       playerBoard[i][0] = letterArray[i];
+   }
+   for(int i=1; i<rows;i++)
+   {
+     for (int j=1; j<columns; j++)
+     {
+        playerBoard[i][j] = "*";
+        }
+    }
+ }
 }
 
 
