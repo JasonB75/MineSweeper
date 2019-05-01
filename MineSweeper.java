@@ -19,14 +19,13 @@ public class MineSweeper
          {
              for (int j=0; j<column; j++)
              {
-                 
+                 board[i][j] = checkMines(i,j);
              }
          }
          
-
     }
     
-    public void MineSweeper(int row, int column)
+    public MineSweeper(int row, int column)
     {
      board = new int[row][column];
      generateBoard(4, row, column);
@@ -35,29 +34,35 @@ public class MineSweeper
     public int checkMines(int row, int column)
     {
         int out = 0;
-        int[][] placeChecks; 
-        placeChecks=new int[8][2];
-        placeChecks = {{row-1, column-1},{row-1,column},{row-1,coumn+1},{row,colum+1},{row+1,column+1},{row+1,column},
+        int[][] placeChecks  = {{row-1, column-1},{row-1,column},{row-1,column+1},{row,column+1},{row+1,column+1},{row+1,column},
                       {row+1,column-1},{row, column-1}};
         
         for(int[] n: placeChecks)
         {
-             if(n[0] >= 0 && n[1]>=0)
+             if(n[0] >= 0 && n[1]>=0 && n[0] <= 4 && n[1]<=4 )
              {
-                 if(board[n[0]][n[1]]=9)
+                 if(board[n[0]][n[1]]==9)
                  {
-                      out+=1
+                      out+=1;
                  }
              }
               
         }
         return out;
-        
-        
-        
     }
     
-
+    public void printGame()
+    {
+        
+        for(int[] n: board)
+        {
+            String out = "";
+            for(int m: n)
+            {
+            
+            }
+        }
+    }
 
 }
 
