@@ -59,8 +59,10 @@ public class MineSweeper
             String out = "";
             for(int m: n)
             {
-            
+                out = out+m+" ";
             }
+            System.out.println(out + "\n");
+            out = "";
         }
     }
 
