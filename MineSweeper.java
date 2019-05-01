@@ -69,20 +69,6 @@ public class MineSweeper
             out = "";
         }
     }
-    
-    public void printBoard()
-     {    for(String[] n: playerBoard)
-        {
-            String out = "";
-            for(String m: n)
-            {
-                out = out+m+" ";
-            }
-            System.out.println(out + "\n");
-            out = "";
-        }
-    }
-    
     public void start(int rows, int columns)
 {
    String[][] playerBoard = new String[rows+1][columns+1];
@@ -107,6 +93,21 @@ public class MineSweeper
         }
     }
  }
+    
+    public void printBoard()
+     {    for(String[] n: playerBoard)
+        {
+            String out = "";
+            for(String m: n)
+            {
+                out = out+m+" ";
+            }
+            System.out.println(out + "\n");
+            out = "";
+        }
+    }
+    
+    
 }
 
 
