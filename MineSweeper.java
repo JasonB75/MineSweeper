@@ -5,7 +5,7 @@ public class MineSweeper
     public void generateBoard(int numMines, int row, int column )
     {
          int[][] mines = new int[numMines][2];
-         for (int i=0; i<=numMines; i++)
+         for (int i=0; i<numMines; i++)
          {
              mines[i][0] = (int)(Math.random() *(row-1)+1)-1;
              mines[i][1] = (int)(Math.random()*(column-1)+1)-1;
@@ -19,7 +19,10 @@ public class MineSweeper
          {
              for (int j=0; j<column; j++)
              {
+                 if (board[i][j] != 9)
+                 {
                  board[i][j] = checkMines(i,j);
+                }
              }
          }
          
