@@ -66,38 +66,54 @@ public class MineSweeper
             String out = "";
             for(int m: n)
             {
-                out = out+m+" ";
+                out = out+m+"   ";
             }
             System.out.println(out + "\n");
             out = "";
         }
     }
     public void start(int rows, int columns)
-{
-   String[][] playerBoard = new String[rows+1][columns+1];
-   
-   
-   
-   
-   for (int i=0; i<columns; i++)
-   {
-       playerBoard[0][i] = numArray[i];
-    }
-   for (int i=0; i<rows; i++)
-   {
-       playerBoard[i][0] = letterArray[i];
-   }
-   for(int i=1; i<rows;i++)
-   {
-     for (int j=1; j<columns; j++)
-     {
-        playerBoard[i][j] = "*";
+    {
+        playerBoard = new String[rows+1][columns+1];
+
+       for (int i=0; i<=columns; i++)
+       {
+           playerBoard[0][i] = numArray[i] + "  ";
+        }
+       for (int i=0; i<=rows; i++)
+       {
+           playerBoard[i][0] = letterArray[i];
+       }
+       for(int i=1; i<=rows;i++)
+       {
+         for (int j=1; j<=columns; j++)
+         {
+            playerBoard[i][j] = "*  ";
+            }
         }
     }
- }
     
-    public void enterCord(String row, int column)
+    public void enterCord(int row, int column)
     {
+        int[][] placesArray = {{row-1, column-1},{row-1,column},{row-1,column+1},{row,column+1},{row+1,column+1},{row+1,column},
+                      {row+1,column-1},{row, column-1}};
+        int tempRow;
+        int tempColumn;
+        if (board[row][column] == 9)
+        {
+            //gameOver=true;
+            System.out.println("AAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+        }
+        playerBoard[row+1][column+1] = intsArray[board[row][column]].toString();
+        
+        
+                      
+        for (int[] n: placesArray)
+        {
+            tempRow = n[0];
+            tempColumn = n[1];
+            playerBoard[tempRow+1][tempColumn+1] = intsArray[board[tempRow][tempColumn]].toString();
+        }
      
           
     }
