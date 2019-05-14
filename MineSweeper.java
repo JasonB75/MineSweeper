@@ -141,7 +141,7 @@ public class MineSweeper
              {
                  if (board[i][j] != 9)
                  {
-                 board[i][j] = checkMines(i,j);
+                 board[i][j] = checkMines(i,j, row, column);
                 }
              }
          }
@@ -154,7 +154,7 @@ public class MineSweeper
      generateBoard(mines, row, column);
     }
     
-    public int checkMines(int row, int column)
+    public int checkMines(int row, int column, int realRow, int realColumn)
     {
         int out = 0;
         int[][] placeChecks  = {{row-1, column-1},{row-1,column},{row-1,column+1},{row,column+1},{row+1,column+1},{row+1,column},
@@ -162,7 +162,7 @@ public class MineSweeper
         
         for(int[] n: placeChecks)
         {
-             if(n[0] >= 0 && n[1] >= 0 && n[0] <= (row+1) && n[1] <= (column+1) )
+             if(n[0] >= 0 && n[1] >= 0 && n[0] <= realRow && n[1] <= realColumn )
              {
                  if(board[n[0]][n[1]]==9)
                  {
