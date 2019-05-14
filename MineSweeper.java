@@ -1,12 +1,128 @@
+import java.util.Scanner;
 public class MineSweeper
 {
-    int[][] board;
-    String[][] playerBoard;
-    String[] letterArray = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-     String[] numArray = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"};
-    Integer[] intsArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-
-    public void generateBoard(int numMines, int row, int column )
+ public boolean gameOver = true;
+ public int counter = 0;
+ int[][] board;
+ String[][] playerBoard;
+ String[] letterArray = {" ", "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+ String[] numArray = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"};
+ Integer[] intsArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+ public MineSweeper()
+ {
+     
+ }
+ public String gameStart()
+ {
+        gameOver = false;
+        counter = 0;
+        return "Howdy Pardner, younna play some vidya gamez? (y/n)";
+ }
+    public String nextRound(String statement)
+    {
+        if (counter == 0)
+        {
+            if(statement.trim().equals("y") || statement.trim().equals("Y"))
+            {
+                counter = counter + 1;
+                return "Select difficulty (E/M/H)";
+            }
+            else if (statement.trim().equals("n") || statement.trim().equals("N"))
+            {
+                return "Then Perish";
+            }
+        }
+        else if (counter == 1)
+        {
+            if(statement.trim().equals("e") || statement.trim().equals("E"))
+            {
+                counter = counter + 1;
+                    int row = 5;
+                    int column = 5;
+                    MineSweeper round = new MineSweeper(row, column, 4);
+                    round.printGame();
+                    round.start(row,column);
+                    //round.printBoard();
+                return "Easy mode selected, let the games begin! Enter your next cordinates (Letter, Number)";
+                
+            }
+            else if(statement.trim().equals("m") || statement.trim().equals("M"))
+            {
+                counter = counter + 1;
+                    int row = 10;
+                    int column = 10;
+                    MineSweeper round = new MineSweeper(row, column, 8);
+                    round.printGame();
+                    round.start(row,column);
+                    //round.printBoard();
+                return "Medium mode selected, let the games begin! Enter your next cordinates (Letter, Number)";
+                
+            }
+            else if(statement.trim().equals("h") || statement.trim().equals("H"))
+            {
+                counter = counter + 1;
+                    int row = 15;
+                    int column = 15;
+                    MineSweeper round = new MineSweeper(row, column, 16);
+                    round.printGame();
+                    round.start(row,column);
+                    //round.printBoard();
+                return "Hard mode selected, let the games begin! Enter your next cordinates (Letter, Number)";
+            }
+            else
+            {
+                return "What?";
+            }
+        }
+        else if(counter >= 2)
+        {
+            if (statement.trim().contains("a") 
+            || (statement.trim().contains("b")) 
+            || (statement.trim().contains("c")) 
+            || (statement.trim().contains("d")) 
+            || (statement.trim().contains("e")) 
+            || (statement.trim().contains("f")) 
+            || (statement.trim().contains("g")) 
+            || (statement.trim().contains("h")) 
+            || (statement.trim().contains("i")) 
+            || (statement.trim().contains("j")) 
+            || (statement.trim().contains("k")) 
+            || (statement.trim().contains("l")) 
+            || (statement.trim().contains("m")) 
+            || (statement.trim().contains("n")) 
+            || (statement.trim().contains("o"))) 
+            {
+                if (statement.trim().contains("1") 
+                || (statement.trim().contains("2")) 
+                || (statement.trim().contains("3")) 
+                || (statement.trim().contains("4")) 
+                || (statement.trim().contains("5")) 
+                || (statement.trim().contains("6")) 
+                || (statement.trim().contains("7")) 
+                || (statement.trim().contains("8")) 
+                || (statement.trim().contains("9")) 
+                || (statement.trim().contains("10")) 
+                || (statement.trim().contains("11")) 
+                || (statement.trim().contains("l2")) 
+                || (statement.trim().contains("13")) 
+                || (statement.trim().contains("14")) 
+                || (statement.trim().contains("15")))
+                {
+                    if (statement.trim().contains(","))
+                    {
+                        counter = counter + 1;
+                        return "Round " + (counter - 1) + "! Enter your next cordinates (Letter, Number)";
+                    }
+                }
+        else
+          {
+           return "Please enter your cordinates correctly";
+          }
+        }
+    }
+   return "Yeet";
+     }
+ public void generateBoard(int numMines, int row, int column )
     {
          int[][] mines = new int[numMines][2];
          for (int i=0; i<numMines; i++)
@@ -35,7 +151,7 @@ public class MineSweeper
     public MineSweeper(int row, int column, int mines)
     {
      board = new int[row][column];
-     generateBoard(4, row, column);
+     generateBoard(mines, row, column);
     }
     
     public int checkMines(int row, int column)
@@ -46,7 +162,7 @@ public class MineSweeper
         
         for(int[] n: placeChecks)
         {
-             if(n[0] >= 0 && n[1]>=0 && n[0] <= 4 && n[1]<=4 )
+             if(n[0] >= 0 && n[1] >= 0 && n[0] <= (row+1) && n[1] <= (column+1) )
              {
                  if(board[n[0]][n[1]]==9)
                  {
@@ -130,18 +246,4 @@ public class MineSweeper
             out = "";
         }
     }
-    
-    
 }
-
-
-
-/*
- * for (int i=0; i<=5; i++)
-        {
-            for (int j=0; j<=5; j++)
-            {
-                board[i][j] = false;
-            }
-        }
- */
