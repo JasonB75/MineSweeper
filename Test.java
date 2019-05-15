@@ -1,16 +1,17 @@
-public class Test
+import java.util.Scanner;
+public class TalkAboutIt
 {
-    public int counter = 0;
-    
-    public static void main()
+    public static void main(String[] args)
     {
-    int row = 5;
-    int column = 5;
-    MineSweeper round = new MineSweeper(row, column, 4);
-    round.printGame();
-    round.start(row,column);
-    round.printBoard();
-}
-
-
+        MineSweeper turn = new MineSweeper();
+        System.out.println (turn.gameStart());
+        Scanner in = new Scanner (System.in);
+        String statement = in.nextLine();
+        
+        while (!turn.gameOver)
+        {
+            System.out.println(turn.nextRound(statement));
+            statement = in.nextLine();
+        }
+    }
 }
