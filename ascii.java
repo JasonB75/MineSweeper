@@ -1,3 +1,12 @@
+BufferedImage bufferedImage = new BufferedImage(
+  width, height, 
+  BufferedImage.TYPE_INT_RGB);
+Graphics graphics = bufferedImage.getGraphics();
+
+BufferedImage bufferedImage = new BufferedImage(
+  width, height, 
+  BufferedImage.TYPE_INT_RGB);
+
 Graphics2D graphics2D = (Graphics2D) graphics;
 graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
   RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
