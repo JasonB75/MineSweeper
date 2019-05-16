@@ -1,23 +1,24 @@
- import java.util.Scanner;
-    public class MineSweeper
+import java.util.Scanner;
+public class MineSweeper
+{
+    public boolean gameOver = true;
+    MineSweeper round;
+    public int counter = 0;
+    int[][] board;
+    String[][] playerBoard;
+    String[] letterArray = {" ", "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+    String[] numArray = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"};
+    Integer[] intsArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+    public MineSweeper()
     {
-     public boolean gameOver = true;
-     public int counter = 0;
-     int[][] board;
-     String[][] playerBoard;
-     String[] letterArray = {" ", "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-     String[] numArray = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"};
-     Integer[] intsArray = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-     public MineSweeper()
-     {
          
-     }
+    }
      public String gameStart()
-     {
+    {
             gameOver = false;
             counter = 0;
             return "Howdy Pardner, younna play some vidya gamez? (y/n)";
-     }
+    }
         public String nextRound(String statement)
         {
             if (counter == 0)
@@ -39,7 +40,7 @@
                     counter = counter + 1;
                         int row = 5;
                         int column = 5;
-                        MineSweeper round = new MineSweeper(row, column, 4);
+                        round = new MineSweeper(row, column, 4);
                         round.start(row,column);
                         round.printBoard();
                         //round.printBoard();
@@ -51,7 +52,7 @@
                     counter = counter + 1;
                         int row = 10;
                         int column = 10;
-                        MineSweeper round = new MineSweeper(row, column, 8);
+                        round = new MineSweeper(row, column, 8);
                         round.start(row,column);
                         round.printBoard();
                         //round.printBoard();
@@ -63,7 +64,7 @@
                     counter = counter + 1;
                         int row = 15;
                         int column = 15;
-                        MineSweeper round = new MineSweeper(row, column, 16);
+                        round = new MineSweeper(row, column, 16);
                         round.start(row,column);
                         round.printBoard();
                         //round.printBoard();
@@ -110,37 +111,37 @@
                     {
                         if (statement.trim().contains(","))
                         {
-                            //String  bois = " abcdefghijklmnop";
+                            String  bois = " abcdefghijklmnop";
                             counter = counter + 1;
-                            //String[] values = statement.split(",");
-                            //int result = Integer.parseInt(values[1]);
-                            //int yeet = bois.indexOf(values[0]);
-                            //enterCord(yeet, result);
-                            printGame();
+                            String[] values = statement.split(",");
+                            int result = Integer.parseInt(values[1]);
+                            int yeet = bois.indexOf(values[0]);
+                            enterCord(yeet, result);
+                            //round.printGame();
                             return "Round " + (counter - 1) + "! Enter your next cordinates (Letter,Number)";
                         }
                     }
-            else
-              {
-               return "Please enter your cordinates correctly";
-              }
+                    else
+                    {
+                        return "Please enter your cordinates correctly";
+                    }
             }
         }
-       return "Please enter your cordinates correctly";
-     }
- public void generateBoard(int numMines, int row, int column )
+        return "Please enter your cordinates correctly";
+    }
+    //Makes the real board
+    public void generateBoard(int numMines, int row, int column )
     {
          int[][] mines = new int[numMines][2];
          for (int i=0; i<numMines; i++)
          {
-             mines[i][0] = (int)(Math.random() *(row-1)+1)-1;
-             mines[i][1] = (int)(Math.random()*(column-1)+1)-1;
+             mines[i][0] = (int)(Math.random() * (row-1)+1)-1;
+             mines[i][1] = (int)(Math.random() * (column-1)+1)-1;
          }
          for (int[] n: mines)
          {
              board[n[0]][n[1]] = 9;
-         }
-         
+         } 
          for(int i=0; i<row; i++)
          {
              for (int j=0; j<column; j++)
@@ -151,20 +152,18 @@
                 }
              }
          }
-         
     }
-    
+    //MineSweeper Constructer
     public MineSweeper(int row, int column, int mines)
     {
      board = new int[row][column];
      generateBoard(mines, row, column);
     }
-    
+    //Places the mines.
     public int checkMines(int row, int column, int realRow, int realColumn)
     {
         int out = 0;
-        int[][] placeChecks  = {{row-1, column-1},{row-1,column},{row-1,column+1},{row,column+1},{row+1,column+1},{row+1,column},
-                      {row+1,column-1},{row, column-1}};
+        int[][] placeChecks  = {{row-1, column-1},{row-1,column},{row-1,column+1},{row,column+1},{row+1,column+1},{row+1,column},{row+1,column-1},{row, column-1}};
         
         for(int[] n: placeChecks)
         {
@@ -175,29 +174,34 @@
                       out+=1;
                  }
              }
-              
         }
         return out;
     }
-    
+    //Print game prints out the actual game with the numbers.
     public void printGame()
     {
-        
-        for(int[] n: board)
+        if (board == null)
         {
-            String out = "";
-            for(int m: n)
-            {
-                out = out+m+"   ";
-            }
-            System.out.println(out + "\n");
-            out = "";
+             System.out.println("Board is null -- printGame!");
+        }
+        else
+        {
+             for(int[] n: board)
+             {
+                  String out = "";
+                  for(int m: n)
+                  {
+                       out = out+m+"   ";
+                  }
+                  System.out.println(out + "\n");
+                  out = "";
+             }
         }
     }
+    //Generates the player board and begins the game.
     public void start(int rows, int columns)
     {
-        playerBoard = new String[rows+1][columns+1];
-
+       playerBoard = new String[rows+1][columns+1];
        for (int i=0; i<=columns; i++)
        {
            if (i> 9)
@@ -207,8 +211,7 @@
            else
            {
                playerBoard[0][i] = numArray[i] + "  ";
-            }
-      
+           }
         }
        for (int i=0; i<=rows; i++)
        {
@@ -216,21 +219,18 @@
        }
        for(int i=1; i<=rows;i++)
        {
-         for (int j=1; j<=columns; j++)
-         {
-            playerBoard[i][j] = "*  ";
-            }
+           for (int j=1; j<=columns; j++)
+           {
+                playerBoard[i][j] = "*  ";
+           }
         }
     }
-    
+    //Checks the users input to see if its a mine, and then reveals what they picked.
     public void enterCord(int row, int column)
     {
-        int[][] placesArray = {{row-1, column-1},{row-1,column},{row-1,column+1},{row,column+1},{row+1,column+1},{row+1,column},
-                      {row+1,column-1},{row, column-1}};
+        int[][] placesArray = {{row-1, column-1},{row-1,column},{row-1,column+1},{row,column+1},{row+1,column+1},{row+1,column}, {row+1,column-1},{row, column-1}};
         int tempRow;
         int tempColumn;
-        
-        
         if (board[row][column] == 9)
         {
             System.out.println("AAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
@@ -243,20 +243,26 @@
             tempColumn = n[1];
             playerBoard[tempRow+1][tempColumn+1] = intsArray[board[tempRow][tempColumn]].toString();
         }
-    
-          
     }
-    
+    //Print's out the player board which has no numbers.
     public void printBoard()
-     {    for(String[] n: playerBoard)
+     {    
+        if (board == null)
         {
-            String out = "";
-            for(String m: n)
+            System.out.println("Board is null -- printBoard!");
+        }
+        else
+        {
+            for(String[] n: playerBoard)
             {
-                out = out + m + " ";
+                String out = "";
+                for(String m: n)
+                {
+                     out = out + m + " ";
+                }
+                System.out.println(out + "\n");
+                out = "";
             }
-            System.out.println(out + "\n");
-            out = "";
         }
     }
 }
